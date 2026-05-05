@@ -105,9 +105,30 @@ const loginUser = async (req, res) => {
   }
 };
 
+//
+const getUserDetails = async (req, res) => {
+  try {
+    // 1. Get user id from token
+    const userId = req.user.id;
+
+    // 2. Find user in MongoDB
+    const user = await User.findById(userId).select("name email");
+
+    // 3. Send response
+    res.json({
+      name: user.name,
+      email: user.email
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
 
 // ================= EXPORT (IMPORTANT FIX) =================
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,getUserDetails
 };

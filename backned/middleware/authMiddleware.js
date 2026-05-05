@@ -13,10 +13,10 @@ const authMiddleware = (req, res, next) => {
     }
 
     // 3. Remove "Bearer "
-    const token = header.split(" ")[1];
+    // const token = header.split(" ")[1];
 
     // 4. Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(header, process.env.JWT_SECRET);
 
     // 5. Store user data
     req.user = decoded;
